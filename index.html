@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- my CSS -->
+    <link rel="stylesheet" href="style.css" />
+
+    <title>BG color changer</title>
+  </head>
+
+  <body>
+    <h3>Background color changer</h3>
+    <p>
+      Change the background color of the web page using the textbox (type in a
+      color name/value) or the HTML color picker or using specific buttons.
+      Double click the first button to change to a random color.
+    </p>
+
+    <div class="row">
+      <!-- using input fields & random number generator to change to any color -->
+      <input type="text" id="colorInputText" placeholder="enter color value" />
+      <input type="color" id="colorPicker" />
+      <button class="btn" id="colorChangeBtn">Change color</button>
+    </div>
+
+    <!-- using buttons to change to specific colors-->
+    <button class="btn" id="pink">pink</button>
+
+    <button class="btn" id="blue">blue</button>
+
+    <button class="btn" id="grey">grey</button>
+
+    <!-- my script -->
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>
