@@ -22,18 +22,21 @@ pipeline {
                     docker push mvlab02/jsdemo01:httpd-${VERSION}
                     '''
                 }
+                
             }
         }
         stage("Deploy WebApp on K8s") {
-            
-		    sshagent(['minikube-ssh']) {
-		        sh '''
-		        ssh root@192.168.1.9 mkdir /root/kube-manifest/${JOB_NAME}
-		        scp ${PWD}/workspace/${JOB_NAME}/kube-manifest/*.* root@192.168.1.9:/root/kube-manifest/${JOB_NAME}
-	   	 	    ssh root@192.168.1.9 kubectl apply -f .
-	   	 	    '''
-		    }
-            
+            steps {
+    		    sshagent(credentials: ['minikube-ssh'], ignoreMissing: true) {
+    		        sh '''
+    		        chmod u+x ${PWD}/kube-manifest/apply-image-tag.sh
+    		        ${PWD}/kube-manifest/apply-image-tag.sh ${VERSION}
+    		        ssh root@192.168.1.9 mkdir /root/kube-manifest/${JOB_NAME}
+    		        scp ${PWD}/kube-manifest/jsdemo01-*.yml root@192.168.1.9:/root/kube-manifest/${JOB_NAME}
+    	   	 	    ssh root@192.168.1.9 kubectl apply -f .
+    	   	 	    '''
+    		    }
+            }
         }
 
     }
