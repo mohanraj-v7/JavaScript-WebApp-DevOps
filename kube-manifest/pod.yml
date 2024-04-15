@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jsdemo01
+  labels:
+    app: jsdemo01
+    type: static-js
+spec:
+  containers:
+  - name: jsdemo01
+    image: mvlab02/jsdemo01:httpd-tag
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 80
