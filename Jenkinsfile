@@ -39,7 +39,7 @@ pipeline {
     		        sh '''
     		        ssh -o StrictHostKeyChecking=no -l root 192.168.1.8 mkdir /root/kube-manifest/${JOB_NAME} || true
     		        scp ${PWD}/kube-manifest/jsdemo01-*.yml root@192.168.1.8:/root/kube-manifest/${JOB_NAME}
-    		        ssh -o StrictHostKeyChecking=no -l root 192.168.1.8 "cd /root/kube-manifest/${JOB_NAME}" && "kubectl apply -f . --namespace=${JOB_NAME}"
+    		        ssh -o StrictHostKeyChecking=no -l root 192.168.1.8 "cd /root/kube-manifest/${JOB_NAME} && kubectl apply -f jsdemo01-namespace.yml && kubectl apply -f . --namespace=${JOB_NAME}"
     	   	 	    '''
     		    }
             }
