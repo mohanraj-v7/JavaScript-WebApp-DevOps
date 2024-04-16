@@ -25,20 +25,25 @@ pipeline {
                 
             }
         }
+        stage("Customize pod definition") {
+            steps {
+                sh '''
+                chmod u+x ${PWD}/kube-manifest/apply-image-tag.sh
+                cd ${PWD}/kube-manifest && ./apply-image-tag.sh ${VERSION}
+                '''                
+            }
+        }
         stage("Deploy WebApp on K8s") {
             steps {
-    		    sshagent(credentials: ['minikube-ssh'], ignoreMissing: true) {
+    		    sshagent(credentials: ['minikube'], ignoreMissing: true) {
     		        sh '''
-    		        chmod u+x ${PWD}/kube-manifest/apply-image-tag.sh
-    		        ${PWD}/kube-manifest/apply-image-tag.sh ${VERSION}
-    		        ssh root@192.168.1.9 mkdir /root/kube-manifest/${JOB_NAME}
-    		        scp ${PWD}/kube-manifest/jsdemo01-*.yml root@192.168.1.9:/root/kube-manifest/${JOB_NAME}
-    	   	 	    ssh root@192.168.1.9 kubectl apply -f .
+    		        ssh -o StrictHostKeyChecking=no -l root 192.168.1.8 mkdir /root/kube-manifest/${JOB_NAME}
+    		        scp ${PWD}/kube-manifest/jsdemo01-*.yml root@192.168.1.8:/root/kube-manifest/${JOB_NAME}
+    	   	 	    ssh -o StrictHostKeyChecking=no -l root 192.168.1.8 kubectl apply -f jsdemo01-*.yml --namespace=jsdemo01
     	   	 	    '''
     		    }
             }
         }
-
     }
 }
 
