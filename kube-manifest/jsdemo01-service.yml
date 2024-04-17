@@ -10,6 +10,5 @@ spec:
   selector:
     app: jsdemo01
   ports:
-  - port: 5000
-    targetPort: 80
-    nodePort: 30001
+      - port: 80
+        NodePort: 30001
