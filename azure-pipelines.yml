@@ -41,7 +41,7 @@ stages:
             tags: '$(tag)'
         - task: CmdLine@2
           inputs:
-            script: 'echo -n "$tag" >>$(Build.ArtifactStagingDirectory)\Application_Info\Version.txt'
+            script: 'echo -n $(tag) >>$(Build.ArtifactStagingDirectory)\Application_Info\Version.txt'
         - task: PublishBuildArtifacts@1
           inputs:
             PathtoPublish: '$(Build.ArtifactStagingDirectory)'
