@@ -25,7 +25,7 @@ stages:
             script: |
               echo $(Build.SourceVersion)
               versiontag=$(echo -n $(git describe $(Build.SourceVersion)))
-              echo '##vso[task.setvariable variable=tag]
+              echo '##vso[task.setvariable variable=tag]$versiontag'
         - task: CmdLine@2
           inputs:
             script: |
