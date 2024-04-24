@@ -27,5 +27,3 @@ stages:
               versiontag=$(echo -n $(git describe $(Build.SourceVersion)))
               echo "##vso[task.setvariable variable=tag]$versiontag"
               echo $tag
-              echo $versiontag
-       
