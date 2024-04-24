@@ -25,3 +25,6 @@ stages:
             script: |
               echo $(Build.SourceVersion)
               TAG=$(git describe --exact-match $(Build.SourceVersion))
+        - task: CmdLine@2
+          inputs:
+            script: 'echo $TAG'
