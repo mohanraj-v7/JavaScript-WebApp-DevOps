@@ -20,16 +20,6 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
-    - task: Docker@2
+    - task: CmdLine@2
       inputs:
-        containerRegistry: 'DockerHub-mvlab02'
-        repository: 'mvlab02/azjsdemo01'
-        command: 'build'
-        Dockerfile: '**/Dockerfile'
-    - task: Docker@2
-      inputs:
-        containerRegistry: 'DockerHub-mvlab02'
-        repository: 'mvlab02/azjsdemo01'
-        command: 'push'
-        tags: |
-          $(tag)
+        script: 'echo $(Build.SourceVersion)'
