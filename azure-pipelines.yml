@@ -20,6 +20,6 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
-    - task: CmdLine@2
-      inputs:
-        script: 'echo $(Build.SourceVersion)'
+      - task: CmdLine@2
+        inputs:
+          script: 'TAG=$(git describe --exact-match $(Build.SourceVersion))'
