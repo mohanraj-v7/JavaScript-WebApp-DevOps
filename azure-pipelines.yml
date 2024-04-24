@@ -8,9 +8,6 @@ trigger:
 resources:
 - repo: self
 
-variables:
-- group: azjsdemo01
-
 stages:
 - stage: Build
   displayName: Build image
@@ -42,3 +39,12 @@ stages:
             repository: 'mvlab02/azjsdemo01'
             command: 'push'
             tags: '$(tag)'
+        - task: CmdLine@2
+          inputs:
+            script: 'echo -n "$tag" >>$(Build.ArtifactStagingDirectory)\Application_Info\Version.txt'
+        - task: PublishBuildArtifacts@1
+          inputs:
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+            ArtifactName: 'AppVersionInfo'
+            publishLocation: 'Container'
+        
