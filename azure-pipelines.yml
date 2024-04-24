@@ -24,6 +24,6 @@ stages:
           inputs:
             script: |
               echo $(Build.SourceVersion)
-              echo $(git describe $(Build.SourceVersion))
+              TAG=$(git describe $(Build.SourceVersion))
 
         
