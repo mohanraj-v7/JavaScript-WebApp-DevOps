@@ -24,7 +24,7 @@ stages:
           inputs:
             script: |
               echo $(Build.SourceVersion)
-              echo $(git log)
+              echo $(git describe $(Build.SourceVersion))
         - task: CmdLine@2
           inputs:
             script: 'echo $TAG'
